@@ -1,5 +1,4 @@
 name: Shell commands
-
 on: [push]
 
 jobs:
@@ -12,18 +11,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python 3.9
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
+          python-version: '3.8'
 
-      - name: Install dependencies
+      - name: Install flake8
         run: |
+          python3 -m pip install --upgrade pip
           pip install flake8
-
-      - name: Run flake8
-        run: |
-          flake8 .
 
       - name: echo a string
         run: echo "Hello world"
@@ -33,4 +29,5 @@ jobs:
           python3 -V
           touch my_file_with_workflow.py
           ls -l
+          flake8 .
 
