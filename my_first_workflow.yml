@@ -1,5 +1,7 @@
 name: Shell commands
+
 on: [push]
+
 jobs:
   run-shell-command:
     runs-on: ${{ matrix.os }}
@@ -7,10 +9,28 @@ jobs:
       matrix:
         os: [ubuntu-latest, ubuntu-20.04]
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install flake8
+
+      - name: Run flake8
+        run: |
+          flake8 .
+
       - name: echo a string
-        run: echo "Hello wwwwww world"
+        run: echo "Hello world"
+
       - name: multiline script
         run: |
           python3 -V
           touch my_file_with_workflow.py
           ls -l
+
